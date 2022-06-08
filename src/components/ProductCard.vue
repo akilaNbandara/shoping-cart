@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from "vue";
-import { cart, products } from "../store";
+import { useRouter } from "vue-router";
+import { products } from "../store";
+import AddToCartButton from "./AddToCartButton.vue";
 
 const props = defineProps({
   productId: {
@@ -8,46 +10,26 @@ const props = defineProps({
     required: true,
   },
 });
+const router = useRouter();
 
 const product = computed(() => {
   return products.productMap[props.productId];
 });
 
-const onCart = computed(() => {
-  return cart.productsMap[props.productId] || 0;
-});
-
-const onAddToCart = (productId) => {
-  products.addedToCart(productId);
-  cart.addToCart(productId);
-};
-
-const onRemoveFromCart = (productId) => {
-  products.removedFromCart(productId);
-  cart.removeFromCart(productId);
+const onClickProduct = () => {
+  router.push(`/product/${props.productId}`);
 };
 </script>
 
 <template>
   <div class="prod_card">
-    <img class="prod_image" :src="product.image" />
-    <div class="prod_details">
+    <img class="prod_image" :src="product.image" @click="onClickProduct" />
+    <div class="prod_details" @click="onClickProduct">
       <h3>{{ product.name }}</h3>
       <h4>Rs: {{ product.price }}</h4>
       <p>Available {{ product.count }} items</p>
     </div>
-    <div class="card_actions">
-      <span>
-        <button @click="onAddToCart(productId)" :disabled="!product.count">
-          +
-        </button>
-        <h2>{{ onCart }}</h2>
-        <button @click="onRemoveFromCart(productId)" :disabled="!onCart">
-          -
-        </button>
-      </span>
-      <h4>Added To Cart</h4>
-    </div>
+    <AddToCartButton :product-id="productId" />
   </div>
 </template>
 
@@ -69,24 +51,12 @@ const onRemoveFromCart = (productId) => {
   .prod_image {
     width: 200px;
     height: 200px;
+    cursor: pointer;
   }
 
   .prod_details {
     flex: 1;
-  }
-
-  .card_actions {
-    padding: 20px;
-    text-align: center;
-
-    span {
-      display: flex;
-      justify-content: space-between;
-
-      button {
-        width: 30px;
-      }
-    }
+    cursor: pointer;
   }
 }
 </style>

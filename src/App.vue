@@ -1,24 +1,7 @@
 <script setup>
-import ProductList from "./components/ProductList.vue";
 import NavBar from "./components/NavBar.vue";
-import { computed, onMounted, ref } from "vue";
-import CartViewVue from "./components/CartView.vue";
+import { onMounted } from "vue";
 import { products } from "./store";
-
-const routes = {
-  "/": ProductList,
-  "/cart": CartViewVue,
-};
-
-const currentPath = ref(window.location.hash);
-
-window.addEventListener("hashchange", () => {
-  currentPath.value = window.location.hash;
-});
-
-const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || "/"] || ProductList;
-});
 
 onMounted(() => {
   products.populateProductList();
@@ -32,7 +15,7 @@ onMounted(() => {
   </header>
 
   <main>
-    <component :is="currentView" />
+    <router-view></router-view>
   </main>
 </template>
 

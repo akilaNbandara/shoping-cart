@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import { CartConsts } from "../consts";
 import { cart, products } from "../store";
-import ProductCard from "./ProductCard.vue";
+import ProductCard from "../components/ProductCard.vue";
 
 const productsInCart = computed(() => {
   return Object.entries(cart.productsMap)

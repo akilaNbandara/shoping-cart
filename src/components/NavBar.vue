@@ -10,10 +10,10 @@ const prodCount = computed(() => {
 <template>
   <div class="navbar">
     <h1>Vue Shopping Cart</h1>
-    <a href="#/cart" class="cart_icon">
+    <router-link to="/cart" class="cart_icon">
       <i>🛒</i>
       <span v-if="!!prodCount">{{ prodCount }}</span>
-    </a>
+    </router-link>
   </div>
 </template>
 

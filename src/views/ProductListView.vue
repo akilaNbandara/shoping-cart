@@ -1,6 +1,6 @@
 <script setup>
 import { products } from "../store/products";
-import ProductCard from "./ProductCard.vue";
+import ProductCard from "../components/ProductCard.vue";
 </script>
 
 <template>
