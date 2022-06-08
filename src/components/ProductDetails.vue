@@ -60,7 +60,7 @@ console.log(product);
 
     .cart_button {
       width: 150px;
-			margin-left: -20px;
+      margin-left: -20px;
     }
   }
 }
