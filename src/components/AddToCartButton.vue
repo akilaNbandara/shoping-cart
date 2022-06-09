@@ -30,11 +30,19 @@ const onRemoveFromCart = (productId) => {
 <template>
   <div class="card_actions">
     <span>
-      <button @click="onAddToCart(productId)" :disabled="!product.count">
+      <button
+        data-test-id="add-to-cart-btn"
+        @click="onAddToCart(productId)"
+        :disabled="!product.count"
+      >
         +
       </button>
-      <h2>{{ onCart }}</h2>
-      <button @click="onRemoveFromCart(productId)" :disabled="!onCart">
+      <h2 data-test-id="on-cart-count-text">{{ onCart }}</h2>
+      <button
+        data-test-id="remove-from-cart-btn"
+        @click="onRemoveFromCart(productId)"
+        :disabled="!onCart"
+      >
         -
       </button>
     </span>

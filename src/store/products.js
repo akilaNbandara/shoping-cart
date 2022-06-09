@@ -29,7 +29,7 @@ export const products = reactive({
   populateProductList(productsCount = 100) {
     for (let i = 0; i < productsCount; i++) {
       let product = {
-        id: faker.random.alphaNumeric(5) + (i % 10),
+        id: i,
         name: faker.commerce.productName(),
         price: faker.commerce.price(),
         type: faker.commerce.department(),
