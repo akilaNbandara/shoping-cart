@@ -1,51 +1,15 @@
 <script setup>
 import { computed } from "vue";
 import { CartConsts } from "../consts";
-import { cart, products } from "../store";
+import { cart } from "../store";
 import ProductCard from "../components/ProductCard.vue";
 
-const productsInCart = computed(() => {
-  return Object.entries(cart.productsMap)
-    .map(([productId, count]) => {
-      if (!count) return;
-
-      const product = products.productMap[productId];
-      const total = product.price * count;
-
-      return {
-        product,
-        count,
-        total,
-      };
-    })
-    .filter((prodRec) => !!prodRec);
-});
-
-const subTotal = computed(() => {
-  return productsInCart.value.reduce((total, prodRecord) => {
-    return total + prodRecord.total;
-  }, 0);
-});
-
-const mvaCharge = computed(() => {
-  return (subTotal.value * CartConsts.MVA_PERCENTAGE) / 100;
-});
-
-const discountRatio = computed(() => {
-  return Math.min(
-    10,
-    CartConsts.DISCOUNT_PERCENTAGE *
-      parseInt(subTotal.value / CartConsts.DISCOUNT_MARGING)
-  );
-});
-
-const discount = computed(() => {
-  return (subTotal.value * discountRatio.value) / 100;
-});
-
-const total = computed(() => {
-  return subTotal.value + mvaCharge.value - discount.value;
-});
+const productsInCart = computed(() => cart.cartList);
+const subTotal = computed(() => cart.subTotal);
+const mvaCharge = computed(() => cart.mvaCharge);
+const discountRatio = computed(() => cart.discountRatio);
+const discount = computed(() => cart.discount);
+const total = computed(() => cart.total);
 
 const vFormat = (value, desi = 2) => {
   return parseFloat(value).toFixed(desi);

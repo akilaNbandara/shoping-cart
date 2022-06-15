@@ -1,8 +1,23 @@
 import { reactive } from "vue";
-import { faker } from "@faker-js/faker";
+import { getAllProducts } from "../services/products-service";
 
 export const products = reactive({
   productMap: {},
+  loading: false,
+
+  getProducts() {
+    // Dispatch products from service => moking API
+    this.loading = true;
+
+    return new Promise((resolve) => {
+      getAllProducts().then((productsMap) => {
+        this.productMap = productsMap;
+        this.loading = false;
+        resolve(this.productsMap);
+      });
+    });
+  },
+
   addProduct(product) {
     this.productMap[product.id] = product;
   },
@@ -10,35 +25,19 @@ export const products = reactive({
     this.productMap[prodcutId] = undefined;
   },
 
-  addedToCart(prodcutId) {
-    let product = this.productMap[prodcutId];
+  removeProductFromList(prodcutId) {
+    const product = this.productMap[prodcutId];
 
     if (product) {
       product.count--;
     }
   },
 
-  removedFromCart(prodcutId) {
-    let product = this.productMap[prodcutId];
+  addProductToList(prodcutId) {
+    const product = this.productMap[prodcutId];
 
     if (product) {
       product.count++;
-    }
-  },
-
-  populateProductList(productsCount = 100) {
-    for (let i = 0; i < productsCount; i++) {
-      let product = {
-        id: i,
-        name: faker.commerce.productName(),
-        price: faker.commerce.price(),
-        type: faker.commerce.department(),
-        description: faker.commerce.productDescription(),
-        count: parseInt(Math.random() * 100),
-        image: faker.image.imageUrl(480, 480, "product", true),
-      };
-
-      this.addProduct(product);
     }
   },
 });

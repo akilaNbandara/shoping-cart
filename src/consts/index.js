@@ -1,5 +1,6 @@
 export const CartConsts = {
   MVA_PERCENTAGE: 12,
+  MAX_DISCOUNT_RATIO: 10,
   DISCOUNT_PERCENTAGE: 2,
   DISCOUNT_MARGING: 500,
 };

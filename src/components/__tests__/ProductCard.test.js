@@ -4,9 +4,9 @@ import { mount } from "@vue/test-utils";
 import ProductCard from "../ProductCard.vue";
 import { products } from "../../store";
 
-describe("Product Card", () => {
+describe("Product Card", async () => {
   let id = "1";
-  products.populateProductList();
+  await products.getProducts();
   let product = products.productMap[id];
 
   it("Product Card Renderd Properly", () => {

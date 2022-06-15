@@ -4,8 +4,7 @@ import { onMounted } from "vue";
 import { products } from "./store";
 
 onMounted(() => {
-  products.populateProductList();
-  console.log(products);
+  products.getProducts();
 });
 </script>
 

@@ -9,8 +9,11 @@ import ProductCard from "../components/ProductCard.vue";
   </div>
 
   <div class="product_list">
-    <div v-for="product in products.productMap" :key="product.id">
-      <ProductCard v-if="product" :productId="product.id"></ProductCard>
+    <div v-if="products.loading">Loading Product List...</div>
+    <div v-if="!products.loading">
+      <div v-for="product in products.productMap" :key="product.id">
+        <ProductCard v-if="product" :productId="product.id"></ProductCard>
+      </div>
     </div>
   </div>
 </template>

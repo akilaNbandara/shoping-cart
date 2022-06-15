@@ -18,12 +18,10 @@ const onCart = computed(() => {
 });
 
 const onAddToCart = (productId) => {
-  products.addedToCart(productId);
   cart.addToCart(productId);
 };
 
 const onRemoveFromCart = (productId) => {
-  products.removedFromCart(productId);
   cart.removeFromCart(productId);
 };
 </script>
